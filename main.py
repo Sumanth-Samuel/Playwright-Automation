@@ -29,9 +29,9 @@ DOWNLOAD_DIR = "./downloads"
 TIMEOUT = 15000  # default timeout for waits in ms
 
 
-def compute_tomorrow_mmddyyyy() -> str:
-    """Return tomorrow's date in mm/dd/yyyy format."""
-    return (datetime.now() + timedelta(days=1)).strftime("%m/%d/%Y")
+def compute_yesterday_mmddyyyy() -> str:
+    """Return yesterday's date in mm/dd/yyyy format."""
+    return (datetime.now() - timedelta(days=1)).strftime("%m/%d/%Y")
 
 
 def main():
@@ -90,9 +90,9 @@ def main():
             # Scope all subsequent actions to the visible ACH Payments tabpanel
             panel = page.get_by_role("tabpanel", name=re.compile(r"ACH Payments", re.I))
 
-            # 8) Set From/To dates to tomorrow
-            logging.info("STEP 8: Setting date range to tomorrow...")
-            tomorrow = compute_tomorrow_mmddyyyy()
+            # 8) Set From/To dates to yesterday
+            logging.info("STEP 8: Setting date range to yesterday...")
+            yesterday = compute_yesterday_mmddyyyy()
 
             from_box = panel.locator('input[name="datepicker_fromDate"]:visible').first
             to_box   = panel.locator('input[name="datepicker_toDate"]:visible').first
@@ -103,14 +103,14 @@ def main():
             # Make sure they’re in view and fill
             from_box.scroll_into_view_if_needed()
             to_box.scroll_into_view_if_needed()
-            from_box.fill(tomorrow)
-            to_box.fill(tomorrow)
+            from_box.fill(yesterday)
+            to_box.fill(yesterday)
 
             # Fire change events if the UI listens for them
             from_box.dispatch_event("change")
             to_box.dispatch_event("change")
 
-            # logging.info("Set to %s", tomorrow)
+            # logging.info("Set to %s", yesterday)
 
             # 9) Click Search
             logging.info("STEP 9: Clicking 'Search'...")
