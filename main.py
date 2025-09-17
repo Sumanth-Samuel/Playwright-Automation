@@ -22,7 +22,7 @@ logging.basicConfig(
 # ---------- Config ----------
 URL = os.getenv("URL")
 COMPANY_ID = os.getenv("COMPANY_ID")
-USERNAME   = os.getenv("USERNAME")
+USERNAME   = os.getenv("PORTAL_USERNAME")
 PASSWORD   = os.getenv("PASSWORD")
 
 DOWNLOAD_DIR = "./downloads"
